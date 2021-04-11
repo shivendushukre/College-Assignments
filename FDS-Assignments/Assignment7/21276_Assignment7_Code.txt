@@ -1,0 +1,215 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define endl "\n"
+
+using namespace std;
+
+class Node{
+    public:
+    char status;
+    Node *next,*prev;
+    friend class Ticket;
+};
+
+class Ticket{
+    private:
+    Node *head, *tail;
+    public:
+    Ticket(){
+        head=NULL;
+    }
+
+    void create();
+    void available_seats();
+    void book_seat();
+    void cancel_booking();
+};
+
+void Ticket::create(){
+    for(int i=0;i<=7;++i){
+        Node *newnode=new Node();
+        newnode->status=NULL;
+        newnode->prev=NULL;
+        if(head==NULL){
+            head=newnode;
+            newnode->next=head;
+        }
+        else
+        {
+            Node *t1,*t2;
+            t1=head;
+            while (t1->next!=head)
+            {
+                t2=t1;
+                t1=t1->next;
+            }
+            t1->next=newnode;
+            newnode->prev=t1;
+            newnode->next=head;
+            t1->prev=t2;
+        }
+    }
+}
+void Ticket::available_seats(){
+    Node *temp;
+    temp=head;
+    while (temp->next!=head)
+    {
+        cout << "(" << temp->status << ")" << "\t";
+        temp=temp->next;
+    }
+}
+
+void Ticket::book_seat(){
+    Node *temp;
+    temp=head;
+    int row;
+    cout << "Enter seat number you want to book: ";
+    cin >> row;
+    for(int i=0;i<row;++i){
+        temp=temp->next;
+    }
+    if(temp->status=='B'){
+        cout << "\n Selected seat is not available!!" << endl;
+    }
+    else
+    {
+        temp->status='B';
+    }
+}
+
+void Ticket::cancel_booking(){
+    Node *temp;
+    temp=head;
+    int row;
+    cout << "Enter seat number you want to cancel: ";
+    cin >> row;
+    for(int i=0;i<row;++i){
+        temp=temp->next;
+    }
+    if(temp->status==NULL){
+        cout << "\nThe selected seat is free" << endl;
+    }
+    else
+    {
+        temp->status=NULL;
+    }
+    
+}
+
+
+int main(){
+    Ticket t[10];
+    int choice,row;
+    char ch,ans;
+
+    for(int i=0;i<10;++i){
+        t[i].create();
+    }
+    for(int i=0;i<7;++i){
+        cout << "\t" << i+1;
+    }
+    cout << endl;
+    for(int i=0;i<10;++i){
+        cout << i+1 << "\t";
+        t[i].available_seats();
+        cout << endl;
+    }
+
+    do
+    {
+        cout << "\nTicket Booking System of Cinemax Theatre" << endl;
+        cout << "1. The list of available seats" << endl;
+        cout << "2. Book seats" << endl;
+        cout << "3. Cancel Booking" << endl;
+
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            for(int i=0;i<7;++i){
+                cout << "\t" << i+1;
+            }
+            cout << endl;
+            for(int i=0;i<10;++i){
+                cout << i+1 << "\t";
+                t[i].available_seats();
+                cout << endl;
+            }
+            break;
+        case 2:
+            cout << "Enter number of row in which you want to book a seat: ";
+            cin >> row;
+            t[row].book_seat();
+            for(int i=1;i<=7;++i){
+                cout << "\t" << i;
+            }
+            cout << endl;
+            for(int i=0;i<10;++i){
+                cout << i+1 << "\t";
+                t[i].available_seats();
+                cout << endl;
+            }
+            break;
+        case 3:
+            cout << "Enter number of row in which you want to cancel a seat: ";
+            cin >> row;
+            t[row].cancel_booking();
+            for(int i=1;i<=7;++i){
+                cout << "\t" << i;
+            }
+            cout << endl;
+            for(int i=0;i<10;++i){
+                cout << i+1 << "\t";
+                t[i].available_seats();
+                cout << endl;
+            }
+            break;
+        default:
+            cout << "Enter correct choice!" << endl;
+            break;
+        }
+        cout << "Do you want to continue?(y/n): ";
+        cin >> ans;
+    } while (ans=='y');
+    
+    
+    return 0;
+}
+
+
+Sample Output:
+
+
+        1       2       3       4       5       6       7       
+1       ( )     ( )     ( )     ( )     ( )     ( )     ( )     
+2       ( )     ( )     ( )     ( )     ( )     ( )     ( )     
+3       ( )     ( )     ( )     ( )     ( )     ( )     ( )     
+4       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+5       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+6       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+7       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+8       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+9       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+10      ( )     ( )     ( )     ( )     ( )     ( )     ( )
+
+Ticket Booking System of Cinemax Theatre
+1. The list of available seats
+2. Book seats
+3. Cancel Booking
+Enter your choice: 2
+Enter number of row in which you want to book a seat: 1
+Enter seat number you want to book: 1
+        1       2       3       4       5       6       7
+1       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+2       ( )     (B)     ( )     ( )     ( )     ( )     ( )
+3       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+4       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+5       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+6       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+7       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+8       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+9       ( )     ( )     ( )     ( )     ( )     ( )     ( )
+10      ( )     ( )     ( )     ( )     ( )     ( )     ( )
+Do you want to continue?(y/n): n

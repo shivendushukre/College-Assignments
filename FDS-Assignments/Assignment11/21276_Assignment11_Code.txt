@@ -1,0 +1,162 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define endl "\n"
+
+using namespace std;
+
+const int Max=50;
+class Job_Queue{
+    int front,rear;
+    int queue[Max];
+    public:
+    Job_Queue(){
+        front=-1;
+        rear=-1;
+    }
+    void add_job(int x);
+    void delete_job();
+    void display();
+};
+
+void Job_Queue::add_job(int x){
+    if(rear>=Max-1){
+        cout << "\nQueue is overflow!!" << endl;
+    }
+    else
+    {
+        rear++;
+        queue[rear]=x;
+        cout << "\nJob added successfully!" << endl;
+        if(front==-1){
+            front =0;
+        }
+    }
+}
+
+void Job_Queue::delete_job(){
+    if(front==-1){
+        cout << "\nQueue is Underflow!!" << endl; 
+    }
+    else
+    {
+        cout << "\nDeleted Element: " << queue[front] << endl;
+        if(front==rear){
+            front=-1;
+            rear=-1;
+        }
+        else
+        {
+            front++;
+        }
+    }
+}
+
+void Job_Queue::display(){
+    if(front==-1){
+        cout << "\nQueue is empty!!" << endl;
+    }
+    else
+    {
+        for(int i=front;i<=rear;++i){
+            cout << queue[i] << " ";
+        }
+        cout << endl;
+    }
+}
+
+int main(){
+    Job_Queue jq;
+    char ans;
+    int choice,x;
+    do
+    {
+        cout << "\n1.Add Job" << endl;
+        cout << "2.Delete Job" << endl;
+        cout << "3.Display" << endl;
+        cout << "4.Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            cout << "\nEnter Job: ";
+            cin >> x;
+            jq.add_job(x);
+            break;
+        case 2:
+            jq.delete_job();
+            break;
+        case 3:
+            jq.display();
+            break;
+        default:
+            cout << "Enter correct choice!!" << endl;
+            break;
+        }
+        cout << "Do you want to continue?(y/n): ";
+        cin >> ans;
+    } while (ans=='y');
+    return 0;
+}
+
+
+Sample Output:
+
+
+1.Add Job
+2.Delete Job       
+3.Display
+4.Exit
+Enter your choice: 1
+
+Enter Job: 3
+
+Job added successfully!        
+Do you want to continue?(y/n): y
+
+1.Add Job
+2.Delete Job
+3.Display
+4.Exit
+Enter your choice: 1
+
+Enter Job: 5
+
+Job added successfully!
+Do you want to continue?(y/n): y
+
+1.Add Job
+2.Delete Job
+3.Display
+4.Exit
+Enter your choice: 3
+3 5 
+Do you want to continue?(y/n): y
+
+1.Add Job
+2.Delete Job
+3.Display
+4.Exit
+Enter your choice: 2
+
+Deleted Element: 3
+Do you want to continue?(y/n): y
+
+1.Add Job
+2.Delete Job
+3.Display
+4.Exit
+Enter your choice: 2
+
+Deleted Element: 5
+Do you want to continue?(y/n): y
+
+1.Add Job
+2.Delete Job
+3.Display
+4.Exit
+Enter your choice: 3
+
+Queue is empty!!
+Do you want to continue?(y/n): n

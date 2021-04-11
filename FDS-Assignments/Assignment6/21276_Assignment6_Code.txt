@@ -1,0 +1,83 @@
+class SortingTypes:
+
+    def partition(self, percentage, low, high):
+        i = low + 1
+        pivot = percentage[low]
+
+        while i<=high:
+            while i <= high and percentage[i] < pivot:
+               i += 1
+
+            while high >= low and percentage[high] > pivot:
+               high -= 1
+
+            if i < high:
+                temp = percentage[i]
+                percentage[i] = percentage[high]
+                percentage[high] = temp
+            else:
+                break
+
+        flag = percentage[low]
+        percentage[low] = percentage[high]
+        percentage[high] = flag
+
+        return high
+
+    def quick_sort(self, percentage, low, high):
+        if low < high:
+            partition_index = SortingTypes.partition(self, percentage, low, high)
+
+            SortingTypes.quick_sort(self, percentage, low, partition_index-1)
+            SortingTypes.quick_sort(self, percentage, partition_index+1, high)
+
+
+st = SortingTypes()
+percentage = []
+
+size = int(input("Enter number of students: "))
+print("Enter scores of students: ")
+for i in range(0, size):
+    score = float(input())
+    percentage.append(score)
+
+while True:
+    print("Enter 1 to sort students using quick sort"'\n'
+          "Enter 2 to exit."'\n')
+    n = int(input("Enter your choice: "))
+
+    if n == 1:
+        st.quick_sort(percentage, 0, size-1)
+        print("Top five scores are: ")
+        for i in range(-1, -6, -1):
+            print(percentage[i])
+    elif n == 2:
+        break
+    else:
+        print("Enter correct choice!")
+
+
+Sample output:
+
+Enter number of students: 6
+Enter scores of students: 
+5.3
+6.3
+4.5
+9.5
+7.5
+6.3
+Enter 1 to sort students using quick sort
+Enter 2 to exit.
+
+Enter your choice: 1
+Top five scores are: 
+9.5
+7.5
+6.3
+6.3
+5.3
+Enter 1 to sort students using quick sort
+Enter 2 to exit.
+
+Enter your choice: 2

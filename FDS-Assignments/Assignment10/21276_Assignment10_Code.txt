@@ -1,0 +1,211 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define endl "\n"
+
+using namespace std;
+
+const int Max=1000;
+class Stack{
+    char stack[Max],infix[Max],postfix[Max];
+    int evaluate[Max];
+    char s[Max];
+    int top;
+    public:
+        Stack(){
+            top=-1;
+        }
+        void push(char ch);
+        char pop();
+        void convert();
+        int priority(char c);
+        void read();
+        int spaces(char ch);
+        bool is_empty();
+        bool is_full();
+};
+
+bool Stack::is_empty(){
+    if(top==-1){
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+bool Stack::is_full(){
+    if(top==Max-1){
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void Stack::push(char ch){
+    if(top==Max-1){
+        cout << "\n Stack is overflow!!" << endl;
+    }
+    else
+    {
+        top++;
+        stack[top]=ch;
+    }
+    
+}
+
+char Stack::pop()
+{
+    if (top==-1) {
+        cout << "\nStack is empty!!" << endl;
+        return '-1';
+    }
+    else {
+        char ch=stack[top];
+        top--;
+        return ch;
+    }
+}
+
+//Coversion from infix to postfix starts
+void Stack::read(){
+    cout << "\nEnter an expression in infix form: ";
+    cin >> infix;
+}
+
+int Stack::spaces(char ch){
+    if(ch==' ' || ch=='\t' || ch=='\0'){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+void Stack::convert(){
+    int prev,p=0;
+    char entry;
+    for(int i=0;infix[i]!='\0';i++)
+    {
+        if(!spaces(infix[i]))
+        { 
+            switch(infix[i])
+            {
+                case '(': 
+                    push(infix[i]);
+                    break;
+                case ')': 
+                    while((entry=pop())!='('){
+                        postfix[p++]=entry;
+                    }
+                    break;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    if(!is_empty()){  
+                        prev=priority(infix[i]);
+                        entry=pop();
+                        while(prev<=priority(entry))
+                        {   
+                            postfix[p++]=entry;
+                            if(!is_empty()){
+                                entry=pop();
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        if(prev>priority(entry)){
+                            push(entry);
+                        }
+                    }
+                    push(infix[i]);
+                break;
+                default:
+                    postfix[p++]=infix[i];
+                    break;
+            }   
+        }
+    }
+    while(!is_empty()){
+        postfix[p++]=pop();
+        postfix[p]='\0';
+    } 
+    cout << "\nThe postfix expression is: " << postfix << endl; 
+}
+
+int Stack::priority(char c){
+    switch(c)
+    { 
+        case '/': 
+            return(4);          // Precedence of / is 4
+        case '*': 
+            return(3);          // Precedence of * is 3
+        case '+': 
+            return(2);          // Precedence of + is 2
+        case '-': 
+            return(1);          // Precedence of - is 1
+        case '(': 
+            return(0);          // Precedence of ( is 0
+        default: 
+            return(-1);
+    }
+}
+//Conversion from infix to postfix ends
+
+int main(){
+    char ans;
+    int choice;
+    do
+    {
+        Stack s;
+        cout << "\nEnter 1 to convert expression from infix to postfix" << endl;
+        cout << "Enter 2 to exit." << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            s.read();
+            s.convert();
+            break;
+        case 2:
+            exit(1);
+            break;
+        default:
+            cout << "\nEnter correct choice!!" << endl;
+            break;
+        }
+        cout << "\nDo you want to continue?(y/n): ";
+        cin >> ans;
+    } while (ans=='y');
+    return 0;
+}
+
+
+Sample Output:
+
+
+Enter 1 to convert expression from infix to postfix
+Enter 2 to exit.
+Enter your choice: 1
+
+Enter an expression in infix form: A*B+C*D
+
+The postfix expression is: AB*CD*+
+
+Do you want to continue?(y/n): y
+
+Enter 1 to convert expression from infix to postfix
+Enter 2 to exit.
+Enter your choice: 1
+
+Enter an expression in infix form: A*(B+C)*D
+
+The postfix expression is: ABC+*D*
+
+Do you want to continue?(y/n): n

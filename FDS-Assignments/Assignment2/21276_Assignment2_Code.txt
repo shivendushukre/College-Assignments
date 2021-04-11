@@ -1,0 +1,139 @@
+class String:
+    def length_1(self, string1):			##Function for length of string1
+        len1 = 0
+        for i in string1:
+            len1 += 1
+        return len1
+
+    def length_2(self, string2):			##Function for length of string2
+        len2 = 0
+        for i in string2:
+            len2 += 1
+        return len2
+    
+    def longest_length(self, string1, string2):				###Defining longest length function
+        if String.length_1(self, string1) > String.length_2(self, string2):
+            print("The longest length word is: ", string1)
+        else:
+            print("The longest length word is: ", string2)
+
+    def frequency(self, string1, char):					## Defining frequency function
+        freq = 0
+        for i in range(0, String.length_1(self, string1)):
+            if char == string1[i]:
+                freq += 1
+        print("Frequency of", char, "is: ", freq)
+
+    def palindrome(self, string1):					## Defining palindrome function
+        n = String.length_1(self, string1)
+        for i in range(0, int(n/2)):
+            if string1[i] != string1[n-i-1]:
+                print("Given String is not palindrome.")
+                break
+            else:
+                print("Given string is palindrome")
+
+    def index(self, substring, string1):				##Defining index function
+        for i in range(0, String.length_1(self, string1)):
+            for j in range(0, String.length_1(self, substring)):
+                if string1[i+j] != substring[j]:
+                    break
+            if j+1 == String.length_1(self, substring):
+                print("Substring found at index: ", i)
+
+    def occurrences(self, string1, char):				##defining occurrences function
+        count = 0
+        word = string1.split(" ")
+        for i in range(0, String.length_1(self, word)):
+            if char == word[i]:
+                count += 1
+        print("Count of", char, "is: ", count)
+
+
+s = String()			## Object Creation
+
+while True:
+    print("Enter 1 to get the longest substring"'\n' "Enter 2 to get the frequency of character you want"'\n'
+          "Enter 3 to check if string is palindrome or not"'\n' "Enter 4 to get the index of substring"'\n'
+          "Enter 5 to count the occurrences of a character"'\n')
+
+    n = int(input("Enter your choice: "))
+
+    if n == 1:
+        str1 = input("Enter first string: ")
+        str2 = input("Enter second string: ")
+        s.longest_length(str1, str2)				## Calling longest length function
+
+    elif n == 2:
+        str1 = input("Enter the string: ")
+        c = input("Enter character whose frequency is to be searched: ")
+        s.frequency(str1, c)					## Calling frequency function
+
+    elif n == 3:
+        str1 = input("Enter string: ")
+        s.palindrome(str1)					## Calling palindrome function
+
+    elif n == 4:
+        str1 = input("Enter string: ")
+        substring = input("Enter substring to be searched: ")
+        s.index(substring, str1)				## Calling index function
+
+    elif n == 5:
+        str1 = input("Enter string: ")
+        ch = input("Enter character to be searched: ")
+        s.occurrences(str1, ch)					## Calling occurrences function
+
+    else:
+        print("Enter correct choice!")
+
+
+
+Sample output:
+
+Enter 1 to get the longest substring
+Enter 2 to get the frequency of character you want
+Enter 3 to check if string is palindrome or not
+Enter 4 to get the index of substring
+Enter 5 to count the occurrences of a character
+
+
+Enter your choice: 2
+Enter the string: hello
+Enter character whose frequency is to be searched: l
+Frequency of l is:  2
+Enter 1 to get the longest substring
+Enter 2 to get the frequency of character you want
+Enter 3 to check if string is palindrome or not
+Enter 4 to get the index of substring
+Enter 5 to count the occurrences of a character
+
+Enter your choice: 3
+Enter string: hello
+Given String is not palindrome.
+Enter 1 to get the longest substring
+Enter 2 to get the frequency of character you want
+Enter 3 to check if string is palindrome or not
+Enter 4 to get the index of substring
+Enter 5 to count the occurrences of a character
+
+Enter your choice: 4
+Enter string: hello
+Enter substring to be searched: ell
+Substring found at index:  1
+Enter 1 to get the longest substring
+Enter 2 to get the frequency of character you want
+Enter 3 to check if string is palindrome or not
+Enter 4 to get the index of substring
+Enter 5 to count the occurrences of a character
+
+
+
+
+
+
+
+
+
+
+
+

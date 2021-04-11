@@ -1,0 +1,299 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define endl "\n"
+
+const int Max=50;
+using namespace std;
+
+class Dequeue{
+
+	int deque[Max],front,rear;
+
+    public:
+        Dequeue(){
+            front=-1;
+            rear=-1;
+        }
+        void add_at_beg(int ele);
+        void add_at_end(int ele);
+        void delete_from_front();
+        void delete_from_rear();
+        void display();
+};
+
+void Dequeue::add_at_beg(int ele){
+	if(front==-1){
+		front=0;
+		deque[++rear]=ele;
+		cout << "\nInserted element is: " << ele;
+	} 
+	else if(front!=0){
+		deque[--front]=ele;
+		cout << "\nInserted element is: " << ele;
+	} 
+	else{
+		cout << "\nInsertion is not possible, overflow!!";
+	}
+}
+
+void Dequeue::add_at_end(int ele){
+	if(rear>=Max-1){
+      	cout << "\nInsertion is not possible, overflow!!";
+   	} 
+	else
+	{
+      	if(front==-1){
+         	front++;
+         	rear++;
+      	} 
+		else
+		{
+         	rear=rear+1;
+    	}
+      	deque[rear]=ele;
+      	cout << "\nInserted element is: " << deque[rear];
+   	}
+}
+
+void Dequeue::display(){
+	if(front==-1) {
+         cout << "\nDequeue is empty" << endl;
+	}
+	else
+	{
+		for(int i=front;i<=rear;i++){
+			cout << deque[i] << " ";	
+		}
+		cout << endl;
+	}
+}
+
+void Dequeue::delete_from_front(){
+	if(front==-1){
+		cout << "Deletion is not possible:: Dequeue is empty";
+		return;
+	}
+	else
+	{
+		if(front==rear)
+		{
+			front=rear=-1;
+			return;
+		}
+		cout << "The deleted element is " << deque[front];
+		front=front+1;
+	}
+}
+
+void Dequeue::delete_from_rear(){
+	if(front==-1){
+		cout << "Deletion is not possible:Dequeue is empty";
+		return;
+	}
+	else
+	{
+		if(front==rear)
+		{
+			front=rear=-1;
+		}
+		cout << "The deleted element is " << deque[rear];
+		rear=rear-1;
+	}
+}
+
+int main(){
+    Dequeue d;
+    char ans;
+    int choice,x,ele;
+    do
+    {
+        cout << "\n1.Insert element at front" << endl;
+        cout << "2.Insert element at back" << endl;
+        cout << "3.Remove element from front" << endl;
+        cout << "4.Remove element fron back" << endl;
+        cout << "5.Display" << endl;
+        cout << "6.Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            cout << "Enter the element to be inserted: ";
+			cin >> ele;
+            d.add_at_beg(ele);
+            break;
+        case 2:
+            cout << "Enter the element to be inserted: ";
+			cin >> ele;
+			d.add_at_end(ele);
+            break;
+        case 3:
+            d.delete_from_front();
+            break;
+        case 4:
+            d.delete_from_rear();
+            break;
+        case 5:
+            d.display();
+            break;
+        case 6:
+            exit(1);
+            break;
+        default:
+            cout << "Enter correct choice!!" << endl;
+            break;
+        }
+        cout << "\nDo you want to continue?(y/n): ";
+        cin >> ans;
+    } while (ans=='y');
+    return 0;
+}
+
+
+Sample Output:
+
+
+1.Insert element at front
+2.Insert element at back   
+3.Remove element from front
+4.Remove element fron back 
+5.Display
+6.Exit
+Enter your choice: 5
+
+Dequeue is empty
+
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 3
+Deletion is not possible:: Dequeue is empty
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 4
+Deletion is not possible:Dequeue is empty
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 1
+Enter the element to be inserted: 4
+
+Inserted element is: 4
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 2
+Enter the element to be inserted: 5
+
+Inserted element is: 5
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 2
+Enter the element to be inserted: 6
+
+Inserted element is: 6
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 5
+4 5 6 
+
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 3
+The deleted element is 4
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 5
+5 6 
+
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 4
+The deleted element is 6
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 5
+5 
+
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 1
+Enter the element to be inserted: 4
+
+Inserted element is: 4
+Do you want to continue?(y/n): y
+
+1.Insert element at front
+2.Insert element at back
+3.Remove element from front
+4.Remove element fron back
+5.Display
+6.Exit
+Enter your choice: 5
+4 5
+
+Do you want to continue?(y/n): n

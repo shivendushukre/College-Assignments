@@ -1,0 +1,199 @@
+class SearchTypes:
+    # function for linear search
+    def linear_search(self, roll_no, num, size_of_array):
+        check = 1
+        for i in range(0, size_of_array):
+            if num == roll_no[i]:
+                check = 1
+                break
+            else:
+                check = 0
+                pass
+        if check == 1:
+            print("The", num, "is present at index ", i)
+        else:
+            print("The student did not attend the program.")
+
+    # function for sentinel search
+    def sentinel_search(self, roll_no, num, size_of_array):
+        last = roll_no[size_of_array - 1]   # last element of array
+
+        roll_no[size_of_array - 1] = num    #element to be searched is placed at last index
+
+        i = 0
+        while roll_no[i] != num:
+            i += 1
+
+        roll_no[size_of_array - 1] = num    # putting last element back
+
+        if (i < size_of_array-1) or (num == last):
+            print("The ", num, "is present at ", i)
+        else:
+            print("The student did not attend the program.")
+
+    def array_sort(self, roll_no, size_of_array):
+        for i in range(0, size_of_array):
+            for j in range(i + 1, size_of_array):
+                if roll_no[i] > roll_no[j]:
+                    temp = roll_no[i]
+                    roll_no[i] = roll_no[j]
+                    roll_no[j] = temp
+        return roll_no
+
+    # function for binary search
+    def binary_search(self, roll_no, num, size_of_array):
+        SearchTypes.array_sort(self, roll_no,size_of_array)
+        low = 0
+        high = size_of_array - 1
+
+        while low <= high:
+            mid = (low+high)//2
+
+            if num < roll_no[mid]:
+                high = mid - 1
+            elif num > roll_no[mid]:
+                low = mid + 1
+            else:
+                return mid
+        return -1
+
+    # function for fibonacci search
+    def fibonacci_search(self, roll_no, num, size_of_array):
+        SearchTypes.array_sort(self, roll_no, size_of_array)
+        key = num  # updating the number to be searched as key
+
+        # intialize fibonacci series
+        fibm2 = 0               #(m-2)th term
+        fibm1 = 1               #(m-1)th term
+        fibm = fibm1 + fibm2    #mth term
+
+        # store smallest number greater than or equal to the size of array
+        while fibm < size_of_array:
+            fibm2 = fibm1
+            fibm1 = fibm
+            fibm = fibm1 + fibm2
+
+        offset = -1
+        while fibm > 1:
+            if roll_no[fibm2 + offset] < key:
+                fibm = fibm1
+                fibm1 = fibm2
+                fibm2 = fibm - fibm1
+                offset += fibm2
+
+            elif roll_no[offset + fibm2] > key:
+                fibm = fibm2
+                fibm1 = fibm1 - fibm2
+                fibm2 = fibm - fibm1
+
+            else:
+                return offset + fibm2
+
+        # comparing last element with num
+        if fibm1 and roll_no[offset + 1] == key:
+            return offset + 1
+        
+        return -1
+
+
+st = SearchTypes()
+
+roll_no = []
+size = int(input("Enter number of students: "))
+for i in range(0, size):
+    roll_no.append(int(input("Enter roll no. of students: ")))
+
+num = int(input("Enter roll number to be searched: "))
+
+print("Enter 1 to find if the Student attended the program by Linear Search"'\n' 
+      "Enter 2 to find if the Student attended the program by Sentinel Search"'\n' 
+      "Enter 3 to find if the Student attended the program by Binary Search"'\n' 
+      "Enter 4 to find if the Student attended the program by Fibonacci Search"'\n')
+
+n = int(input("Enter your choice: "))
+
+if n == 1:
+    st.linear_search(roll_no, num, size)
+elif n == 2:
+    st.sentinel_search(roll_no, num, size)
+elif n == 3:
+    result = st.binary_search(roll_no, num, size)
+    if result != -1:
+        print("Roll Number is present at index: ", result)
+    else:
+        print("The student did not attend the program.")
+elif n == 4:
+    value = st.fibonacci_search(roll_no, num, size)
+    if value != -1:
+        print("Roll Number found at index", value)
+    else:
+        print("The student did not attend the program.")
+else:
+    print("Enter a valid choice!")
+
+
+Sample output:
+
+Enter number of students: 5
+Enter roll no. of students: 5
+Enter roll no. of students: 9
+Enter roll no. of students: 6
+Enter roll no. of students: 2
+Enter roll no. of students: 4
+Enter roll number to be searched: 5
+Enter 1 to find if the Student attended the program by Linear Search
+Enter 2 to find if the Student attended the program by Sentinel Search
+Enter 3 to find if the Student attended the program by Binary Search
+Enter 4 to find if the Student attended the program by Fibonacci Search
+
+Enter your choice: 1
+5 is present at index  0
+
+
+Enter number of students: 5
+Enter roll no. of students: 5
+Enter roll no. of students: 9
+Enter roll no. of students: 6
+Enter roll no. of students: 2
+Enter roll no. of students: 4
+Enter roll number to be searched: 5
+Enter 1 to find if the Student attended the program by Linear Search
+Enter 2 to find if the Student attended the program by Sentinel Search
+Enter 3 to find if the Student attended the program by Binary Search
+Enter 4 to find if the Student attended the program by Fibonacci Search
+
+Enter your choice: 2
+5 is present at  0
+
+
+Enter number of students: 5
+Enter roll no. of students: 5
+Enter roll no. of students: 9
+Enter roll no. of students: 6
+Enter roll no. of students: 2
+Enter roll no. of students: 4
+Enter roll number to be searched: 5
+Enter 1 to find if the Student attended the program by Linear Search
+Enter 2 to find if the Student attended the program by Sentinel Search
+Enter 3 to find if the Student attended the program by Binary Search
+Enter 4 to find if the Student attended the program by Fibonacci Search
+
+Enter your choice: 3
+Roll Number is present at index:  2
+
+
+
+Enter number of students: 5
+Enter roll no. of students: 5
+Enter roll no. of students: 9
+Enter roll no. of students: 6
+Enter roll no. of students: 2
+Enter roll no. of students: 4
+Enter roll number to be searched: 5
+Enter 1 to find if the Student attended the program by Linear Search
+Enter 2 to find if the Student attended the program by Sentinel Search
+Enter 3 to find if the Student attended the program by Binary Search
+Enter 4 to find if the Student attended the program by Fibonacci Search
+
+Enter your choice: 4
+Roll Number found at index 2

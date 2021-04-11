@@ -1,0 +1,170 @@
+
+
+class Set:
+    inters = []
+    union_set = []
+    cric_foot = []
+    bad_foot = []
+    cric_bad_foot = []
+
+    def __init__(self, cricket, badminton, football):		#Parameterized Constructor
+        self.cricket = cricket
+        self.badminton = badminton
+        self.football = football
+
+    def intersection(self):					#Intersection function
+        for ele in range(0, len(self.cricket)):
+            for j in range(0, len(self.badminton)):
+                if cricket[ele] == badminton[j]:
+                    Set.inters.append(cricket[ele])
+                    break
+
+        print("Students who play both cricket and badminton: ")
+        for i in range(0, len(Set.inters)):
+            print(Set.inters[i], end=' ')
+
+    def union(self):						#Union Function
+        cric_bad = []
+        for ele in range(0, len(cricket)):
+            for j in range(0, len(badminton)):
+                if cricket[ele] == badminton[j]:
+                   cric_bad.append(cricket[ele])
+
+        for ele in range(0, len(cricket)):
+            for j in range(0, len(cric_bad)):
+                if cricket[ele] != cric_bad[j]:
+                    Set.union_set.append(cricket[ele])
+
+        for ele in range(0, len(badminton)):
+            for j in range(0, len(cric_bad)):
+                if badminton[ele] != cric_bad[j]:
+                   Set.union_set.append(badminton[ele])
+
+        print("Students who play cricket and badminton but not both: ")
+        for i in range(0, len(Set.union_set)):
+            print(Set.union_set[i], end=" ")
+
+    def cricbadno(self):				#Defining function to calculate students who don't play cricket and badminton
+         for ele in range(0, len(cricket)):
+             for j in range(0, len(football)):
+                 if cricket[ele] == football[j]:
+                     Set.cric_foot.append(cricket[ele])
+                     break
+
+         for ele in range(0, len(football)):
+             for j in range(0, len(badminton)):
+                 if football[ele] == badminton[j]:
+                     Set.bad_foot.append(football[ele])
+                     break
+
+         for ele in range(0, len(Set.cric_foot)):
+             for j in range(0, len(Set.bad_foot)):
+                 if Set.cric_foot[ele] == Set.bad_foot[j]:
+                     Set.cric_bad_foot.append(Set.cric_foot[ele])
+                     break
+
+         nocricbad = len(football)-len(Set.cric_foot)-len(Set.bad_foot)+len(Set.cric_bad_foot)
+         return nocricbad
+
+    def cricfoot(self):				# Function to calculate students who play cricket and football but not badminton
+
+        for ele in range(0, len(cricket)):
+             for j in range(0, len(football)):
+                 if cricket[ele] == football[j]:
+                     Set.cric_foot.append(cricket[ele])
+                     break
+
+        for ele in range(0, len(football)):
+             for j in range(0, len(badminton)):
+                 if football[ele] == badminton[j]:
+                     Set.bad_foot.append(football[ele])
+                     break
+
+        for ele in range(0, len(Set.cric_foot)):
+            for j in range(0, len(Set.bad_foot)):
+             if Set.cric_foot[ele] == Set.bad_foot[j]:
+                 Set.cric_bad_foot.append(Set.cric_foot[ele])
+                 break
+
+        cricket_football = len(Set.cric_foot) - len(Set.cric_bad_foot)
+        return cricket_football
+
+
+cricket = []					# intializing list for cricket
+C = int(input("Enter number of cricket players: "))
+for i in range(0, C):
+    name = input("Enter player name: ")
+    cricket.append(name)
+
+
+badminton = []					# intializing list for badminton
+B = int(input("Enter number of badminton players: "))
+for i in range(0, B):
+    name = input("Enter player name: ")
+    badminton.append(name)
+
+
+football = []					# intializing list for football
+F = int(input("Enter number of football players: "))
+for i in range(0, F):
+    name = input("Enter player name: ")
+    football.append(name)
+
+
+s1 = Set(cricket, badminton, football)				# Object Creation
+
+
+print("Enter 1 for intersection of cricket and badminton: "'\n' "Enter 2 for union of cricket and badminton: "'\n'
+      "Enter 3 for no. of students who play neither cricket nor badminton: "'\n' "Enter 4 for no. of students who play cricket and football but not badminton: ")
+print()
+
+n = int(input("Enter your choice: "))
+
+
+if n == 1:
+    s1.intersection()
+elif n == 2:
+    s1.union()
+elif n == 3:
+    print("No. of Students who play neither cricket nor Badminton: ", s1.cricbadno())
+elif n == 4:
+    print("No. of students who play cricket and football not badminton: ", s1.cricfoot())
+else:
+    print("Please enter correct value of n: ")
+
+
+
+Sample output:
+
+Enter number of cricket players: 4
+Enter player name: a
+Enter player name: b
+Enter player name: c
+Enter player name: d
+Enter number of badminton players: 4
+Enter player name: e
+Enter player name: f
+Enter player name: c
+Enter player name: b
+Enter number of football players: 4
+Enter player name: f
+Enter player name: g
+Enter player name: i
+Enter player name: a
+Enter 1 for intersection of cricket and badminton: 
+Enter 2 for union of cricket and badminton: 
+Enter 3 for no. of students who play neither cricket nor badminton: 
+Enter 4 for no. of students who play cricket and football but not badminton: 
+
+Enter your choice: 1
+Students who play both cricket and badminton: 
+b c 
+
+
+
+
+
+
+
+
+

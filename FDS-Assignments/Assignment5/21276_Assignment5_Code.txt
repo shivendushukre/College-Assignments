@@ -1,0 +1,93 @@
+class SortingTypes:
+
+    def insertion_sort(self, percentage, size_of_array):
+        for i in range(1, size_of_array):
+            temp = percentage[i]
+            j = i - 1
+            while j >= 0 and temp < percentage[j]:
+                percentage[j + 1] = percentage[j]
+                j -= 1
+            percentage[j + 1] = temp
+
+        print("Top five scores are: ")
+        for i in range(-1, -6, -1):
+            print(percentage[i])
+
+    def shell_sort(self, percentage, size_of_array):
+        gapsize = size_of_array//2
+        while gapsize > 0:
+            for i in range(gapsize, size_of_array):
+                temp = percentage[i]
+                j = i
+                while j >= gapsize and percentage[j-gapsize] > temp:
+                    percentage[j] = percentage[j-gapsize]
+                    j -= gapsize
+                percentage[j] = temp
+            gapsize //=2
+
+        print("Top five scores are: ")
+        for i in range(-1, -6, -1):
+            print(percentage[i])
+
+sort_types = SortingTypes()
+
+percentage = []
+size = int(input("Enter number of students: "))
+print("Enter scores of students: ")
+for i in range(0, size):
+    score = float(input())
+    percentage.append(score)
+
+print("Enter 1 to sort students marks using insertion sort"'\n' 
+      "Enter 2 to sort students marks using shell sort"'\n')
+
+n = int(input("Enter your choice: "))
+
+
+if n == 1:
+    sort_types.insertion_sort(percentage, size)
+elif n == 2:
+    sort_types.shell_sort(percentage, size)
+else:
+    print("Enter correct choice!")
+
+
+Sample output:
+
+Enter number of students: 6
+Enter scores of students: 
+100
+66
+22
+56
+78
+86
+Enter 1 to sort students marks using insertion sort
+Enter 2 to sort students marks using shell sort
+
+Enter your choice: 1
+Top five scores are: 
+100.0
+86.0
+78.0
+66.0
+56.0
+
+Enter number of students: 6
+Enter scores of students: 
+100
+66
+22
+56
+78
+86
+Enter 1 to sort students marks using insertion sort
+Enter 2 to sort students marks using shell sort
+
+Enter your choice: 2
+Top five scores are: 
+100.0
+86.0
+78.0
+66.0
+56.0

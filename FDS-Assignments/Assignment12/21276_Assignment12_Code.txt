@@ -1,0 +1,225 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define endl "\n"
+
+const int Max=50;
+using namespace std;
+
+class Student{
+    int id;
+    int priority;
+    char name[30];
+    friend class Priority_Queue;
+    public:
+        void get_data(){
+            cout << "\nEnter student id: ";
+            cin >> id;
+            cout << "\nEnter student name: ";
+            cin >> name;
+            cout << "\nEnter priority of student: ";
+            cin >> priority;
+        }
+
+        void show_data(){
+            cout << "\nStudent id: " << id << endl;
+            cout << "Student name: " << name << endl;
+            cout << "Student Priority: " << priority << endl;
+        }
+};
+class Priority_Queue{
+    int front,rear;
+    Student queue[Max];
+    public:
+        Priority_Queue(){
+            front=-1;
+            rear=-1;
+        }
+
+        void insert();
+        void remove();
+        void display(); 
+};
+
+void Priority_Queue::insert(){
+    Student s;
+    if(rear>=Max-1){
+        cout << "\nQueue is overflow!!" << endl;
+    }
+    else
+    {
+        s.get_data();
+        if(rear==-1){
+            front++;
+            rear++;
+            queue[rear]=s;
+        }
+        else
+        {
+            int i=rear;
+            while (i>=front && queue[i].priority>s.priority)
+            {
+                queue[i+1]=queue[i];
+                i--;
+            }
+            queue[i+1]=s;
+            rear++;
+        }
+        cout << "\nStudent added successfully!!" << endl;   
+    }
+}
+
+void Priority_Queue::remove(){
+    if(front==-1){
+        cout << "\nQueue is Underflow!!" << endl; 
+    }
+    else
+    {
+        if(front==rear){
+            front=-1;
+            rear=-1;
+        }
+        else
+        {
+            front++;
+        }
+        cout << "Student deleted!!" << endl;
+    }
+}
+
+void Priority_Queue::display(){
+    if(front==-1){
+        cout << "\nQueue is empty!!" << endl;
+    }
+    else
+    {
+        for(int i=front;i<=rear;++i){
+            queue[i].show_data();
+        }
+        cout << endl;
+    }
+}
+
+int main(){
+    Priority_Queue pq;
+    char ans;
+    int choice,x;
+    int y;
+    do
+    {
+        cout << "\n1.Insert item" << endl;
+        cout << "2.Delete item" << endl;
+        cout << "3.Display" << endl;
+        cout << "4.Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            pq.insert();
+            break;
+        case 2:
+            pq.remove();
+            break;
+        case 3:
+            pq.display();
+            break;
+        case 4:
+            exit(1);
+            break;
+        default:
+            cout << "Enter correct choice!!" << endl;
+            break;
+        }
+        cout << "Do you want to continue?(y/n): ";
+        cin >> ans;
+    } while (ans=='y');
+    return 0;
+}
+
+
+Sample Output:
+
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 1
+
+Enter student id: 101
+
+Enter student name: abc
+
+Enter priority of student: 3
+
+Student added successfully!!
+Do you want to continue?(y/n): y
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 1
+
+Enter student id: 102
+
+Enter student name: abcd
+
+Enter priority of student: 1
+
+Student added successfully!!
+Do you want to continue?(y/n): y
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 3
+
+Student id: 102
+Student name: abcd
+Student Priority: 1
+
+Student id: 101
+Student name: abc
+Student Priority: 3
+
+Do you want to continue?(y/n): y
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 2
+Student deleted!!
+Do you want to continue?(y/n): y
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 3
+
+Student id: 101
+Student name: abc
+Student Priority: 3
+
+Do you want to continue?(y/n): y
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 2
+Student deleted!!
+Do you want to continue?(y/n): y
+
+1.Insert item
+2.Delete item
+3.Display
+4.Exit
+Enter your choice: 3
+
+Queue is empty!!
+Do you want to continue?(y/n): n

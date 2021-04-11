@@ -1,0 +1,275 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#define endl "\n"
+
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node *next;
+    friend class LinkedList;
+};
+
+class LinkedList{
+    private:
+    Node *head1, *head2;
+    public:
+    LinkedList(){
+        head1 = new Node();
+        head2= new Node();
+        head1=NULL;
+        head2=NULL;
+    }
+
+    void create_vanilla(int value1);
+    void create_bs(int value2);
+    void vanilla_and_bs();
+    void vanilla_or_bs();
+    void neither_vanilla_bs();
+};
+
+//Creating vanilla set
+void LinkedList::create_vanilla(int value1){
+    Node *vanilla=new Node();
+    vanilla->data=value1;
+    vanilla->next=NULL;
+
+    if(head1==NULL){
+        head1=vanilla;
+    }
+    else
+    {
+        Node *temp=head1;
+        while (temp->next!=NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next=vanilla;
+    }
+}
+
+// creating butterscotch set
+void LinkedList::create_bs(int value2){
+    Node *bs=new Node();
+    bs->data=value2;
+    bs->next=NULL;
+
+    if(head2==NULL){
+        head2=bs;
+    }
+    else
+    {
+        Node *temp=head2;
+        while (temp->next!=NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next=bs;
+    }
+}
+
+//vanilla and butterscotch both
+void LinkedList::vanilla_and_bs(){
+    Node *v,*bs;
+    int found;
+    cout << "Students who like both vanilla and butterscotch: ";
+    cout << "{ ";
+    for(v=head1;v!=NULL;v=v->next){
+        found=0;
+        for(bs=head2;bs!=NULL;bs=bs->next){
+            if(v->data==bs->data){
+                found=1;
+                break;
+            }
+        }
+        if(found==1){
+            cout <<  v->data << " ";
+        }
+    }
+    cout << "}";
+}
+
+//vanilla or butterscotch but not both
+void LinkedList::vanilla_or_bs(){
+    Node *v,*bs;
+    int found;
+    cout << "Students who like either vanilla or butterscotch not both: ";
+    cout << "{ ";
+    for(v=head1;v!=NULL;v=v->next){
+        found=0;
+        for(bs=head2;bs!=NULL;bs=bs->next){
+            if(v->data==bs->data){
+                found=1;
+                break;
+            }
+        }
+        if(found!=1){
+            cout << v->data << " ";
+        }
+    }
+
+    for(bs=head2;bs!=NULL;bs=bs->next){
+        found=0;
+        for(v=head1;v!=NULL;v=v->next){
+            if(bs->data==v->data){
+                found=1;
+                break;
+            }
+        }
+        if(found!=1){
+            cout << bs->data << " ";
+        }
+    }
+    cout << "}";
+}
+
+//neither vanilla nor butterscotch
+void LinkedList::neither_vanilla_bs(){
+    Node *v,*bs;
+    int found,count=0,no_of_v=0,no_of_bs=0;
+    cout << "Number of students who neither like vanilla nor butterscotch: ";
+    for(v=head1;v!=NULL;v=v->next){
+        found=0;
+        for(bs=head2;bs!=NULL;bs=bs->next){
+            if(v->data==bs->data){
+                found=1;
+                break;
+            }
+        }
+        if(found==1){
+            count++;
+        }
+    }
+    while (head1!=NULL)
+    {
+        (no_of_v)++;
+        head1=head1->next;
+    }
+    while (head2!=NULL)
+    {
+        (no_of_bs)++;
+        head2=head2->next;
+    }
+    int total=no_of_v+no_of_bs;
+    cout << total-(total-count) << endl;
+    
+}
+
+int main(){
+    LinkedList *list=new LinkedList();
+    int n,nov,nobs;
+    char ch;
+    
+    //taking input for vanilla
+    cout << "\nHow many students like Vanilla ice-creams: ";
+    cin >> nov;
+    cout << "Enter roll number of students: ";
+    for(int i=0;i<nov;++i){
+        int a;
+        cin >> a;
+        list->create_vanilla(a);
+    }
+
+    //taking input for butterscotch
+    cout << "\nHow many students like Butterscotch ice-creams: ";
+    cin >> nobs;
+    cout << "Enter roll number of students: ";
+    for(int i=0;i<nobs;++i){
+        int b;
+        cin >> b;
+        list->create_bs(b);
+    }
+
+    cout << "\n ****  Menu  ****" << endl;
+    cout << "What do you want to know?" << endl;
+    cout << "1. Students who like both vanilla and butterscotch" << endl;
+    cout << "2. Students who like either vanilla or butterscotch" << endl;
+    cout << "3. Number of students who like neither vanilla nor butterscotch" << endl;
+    cout << "4. Enter -1 to exit" << endl;
+
+    cout << "\nEnter your choice: ";
+    cin >> n;
+
+    switch (n)
+    {
+        case 1:
+            list->vanilla_and_bs();
+            break;
+        case 2:
+            list->vanilla_or_bs();
+            break;
+        case 3:
+            list->neither_vanilla_bs();
+            break;
+        case 4:
+            break;
+        default:
+            cout << "\nEnter correct choice!";
+            break;
+    }
+    
+    delete list;
+
+    return 0;
+}
+
+
+Sample Output:
+
+How many students like Vanilla ice-creams: 6
+Enter roll number of students: 3 8 9 6 4 2
+
+How many students like Butterscotch ice-creams: 7
+Enter roll number of students: 5 9 10 3 6 1 7
+
+ ****  Menu  ****
+What do you want to know?
+1. Students who like both vanilla and butterscotch
+2. Students who like either vanilla or butterscotch
+3. Number of students who like neither vanilla nor butterscotch
+4. Enter -1 to exit
+
+Enter your choice: 1
+Students who like both vanilla and butterscotch: { 3 9 6 }
+
+
+
+How many students like Vanilla ice-creams: 6
+Enter roll number of students: 3 8 9 6 4 2
+
+How many students like Butterscotch ice-creams: 7
+Enter roll number of students: 5 9 10 3 6 1 7
+
+ ****  Menu  ****
+What do you want to know?
+1. Students who like both vanilla and butterscotch
+2. Students who like either vanilla or butterscotch
+3. Number of students who like neither vanilla nor butterscotch
+4. Enter -1 to exit
+
+Enter your choice: 2
+Students who like either vanilla or butterscotch not both: { 8 4 2 5 10 1 7 }
+
+
+
+How many students like Vanilla ice-creams: 6
+Enter roll number of students: 3 8 9 6 4 2
+
+How many students like Butterscotch ice-creams: 7
+Enter roll number of students: 5 9 10 3 6 1 7
+
+ ****  Menu  ****
+What do you want to know?
+1. Students who like both vanilla and butterscotch
+2. Students who like either vanilla or butterscotch
+3. Number of students who like neither vanilla nor butterscotch
+4. Enter -1 to exit
+
+Enter your choice: 3
+Number of students who neither like vanilla nor butterscotch: 3
+
+
+
+
+
